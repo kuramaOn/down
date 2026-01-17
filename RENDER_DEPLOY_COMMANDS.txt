@@ -1,0 +1,152 @@
+# ========================================
+# RENDER DEPLOYMENT COMMANDS
+# Quick reference for deploying to Render
+# ========================================
+
+# ====================
+# METHOD 1: RENDER CLI
+# ====================
+
+# Step 1: Install Render CLI (if not installed)
+npm install -g render
+
+# Step 2: Login to Render
+render login
+
+# Step 3: Create service from render.yaml
+render blueprint create
+
+# Step 4: Set your bot token (REQUIRED!)
+render config:set BOT_TOKEN=YOUR_ACTUAL_TOKEN_HERE
+
+# Step 5: Deploy
+render deploy
+
+# Step 6: View logs
+render logs --tail
+
+
+# ===============================
+# METHOD 2: RENDER DASHBOARD (RECOMMENDED)
+# ===============================
+
+1. Push code to GitHub:
+   git remote add origin https://github.com/YOUR_USERNAME/video-downloader-bot.git
+   git branch -M main
+   git push -u origin main
+
+2. Go to: https://dashboard.render.com
+
+3. Click "New +" → "Web Service"
+
+4. Connect your GitHub repository
+
+5. Configure:
+   Name: video-downloader-bot
+   Environment: Python 3
+   Build Command: pip install -r requirements.txt
+   Start Command: python bot.py
+   Plan: Free
+
+6. Add Environment Variable:
+   Key: BOT_TOKEN
+   Value: YOUR_BOT_TOKEN_FROM_BOTFATHER
+
+7. Click "Create Web Service"
+
+8. Wait 3-5 minutes for deployment
+
+
+# ===============================
+# IMPORTANT: KEEP BOT AWAKE (FREE TIER)
+# ===============================
+
+Render Free tier sleeps after 15 minutes.
+
+Solution: Use UptimeRobot (Free)
+1. Go to: https://uptimerobot.com
+2. Sign up (free)
+3. Add New Monitor:
+   - Type: HTTP(s)
+   - URL: your-render-url.onrender.com
+   - Interval: 10 minutes
+4. Save
+
+This will ping your bot every 10 minutes to keep it awake!
+
+
+# ===============================
+# ALTERNATIVE: BACKGROUND WORKER
+# ===============================
+
+For TRUE 24/7 (no sleep), deploy as Background Worker:
+
+1. Edit render.yaml:
+   Change: type: web
+   To: type: worker
+
+2. Re-deploy
+
+Background workers don't sleep on free tier!
+
+
+# ===============================
+# MONITORING COMMANDS
+# ===============================
+
+# View logs
+render logs
+
+# Tail logs (live)
+render logs --tail
+
+# Check service status
+render services:list
+
+# Restart service
+render services:restart video-downloader-bot
+
+# SSH into service
+render shell
+
+
+# ===============================
+# TROUBLESHOOTING
+# ===============================
+
+# Bot not responding?
+1. Check logs: render logs
+2. Verify BOT_TOKEN: render config
+3. Check if sleeping (free tier)
+
+# Out of memory?
+render config:set MAX_CONCURRENT_DOWNLOADS=5
+render config:set MAX_FILE_SIZE=104857600
+
+# Update yt-dlp?
+- Render rebuilds automatically on git push
+- Or manually: render services:restart
+
+
+# ===============================
+# YOUR DEPLOYMENT CHECKLIST
+# ===============================
+
+☐ Git repository initialized
+☐ Code committed
+☐ Render account created
+☐ Service created (CLI or Dashboard)
+☐ BOT_TOKEN set
+☐ Service deployed
+☐ Bot tested (send YouTube URL)
+☐ UptimeRobot configured (free tier)
+
+
+# ===============================
+# USEFUL LINKS
+# ===============================
+
+Render Dashboard: https://dashboard.render.com
+Render Docs: https://render.com/docs
+UptimeRobot: https://uptimerobot.com
+BotFather: https://t.me/BotFather
