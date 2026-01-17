@@ -1,0 +1,14 @@
+services:
+  - name: video-downloader-bot
+    type: worker
+    instance_type: nano
+    regions:
+      - fra
+    env:
+      - key: BOT_TOKEN
+        value: ${BOT_TOKEN}
+    build:
+      context: .
+      dockerfile: Dockerfile
+    skip_cache: false
+    health_checks: []
