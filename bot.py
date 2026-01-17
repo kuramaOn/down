@@ -637,12 +637,18 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
                     'no_warnings': True,
                     'socket_timeout': 15,
                     'extract_flat': False,
-                    # Fix YouTube bot detection
+                    # Advanced YouTube bot detection bypass
                     'extractor_args': {
                         'youtube': {
-                            'player_client': ['ios', 'web'],
-                            'skip': ['dash', 'hls']
+                            'player_client': ['android', 'web'],
+                            'player_skip': ['webpage', 'configs'],
                         }
+                    },
+                    # Use different user agent
+                    'http_headers': {
+                        'User-Agent': 'com.google.android.youtube/19.09.37 (Linux; U; Android 11) gzip',
+                        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+                        'Accept-Language': 'en-us,en;q=0.5',
                     },
                 }
                 
@@ -1336,12 +1342,18 @@ async def handle_quality_callback(update: Update, context: ContextTypes.DEFAULT_
                     'postprocessors': [],
                     'prefer_ffmpeg': False,
                     'extract_audio': False,  # Don't try to extract/convert audio
-                    # Fix YouTube bot detection
+                    # Advanced YouTube bot detection bypass
                     'extractor_args': {
                         'youtube': {
-                            'player_client': ['ios', 'web'],
-                            'skip': ['dash', 'hls']
+                            'player_client': ['android', 'web'],
+                            'player_skip': ['webpage', 'configs'],
                         }
+                    },
+                    # Use Android YouTube app user agent
+                    'http_headers': {
+                        'User-Agent': 'com.google.android.youtube/19.09.37 (Linux; U; Android 11) gzip',
+                        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+                        'Accept-Language': 'en-us,en;q=0.5',
                     },
                 }
 
