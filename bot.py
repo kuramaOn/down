@@ -1336,6 +1336,13 @@ async def handle_quality_callback(update: Update, context: ContextTypes.DEFAULT_
                     'postprocessors': [],
                     'prefer_ffmpeg': False,
                     'extract_audio': False,  # Don't try to extract/convert audio
+                    # Fix YouTube bot detection
+                    'extractor_args': {
+                        'youtube': {
+                            'player_client': ['ios', 'web'],
+                            'skip': ['dash', 'hls']
+                        }
+                    },
                 }
 
                 # Update status
