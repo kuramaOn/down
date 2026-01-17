@@ -1,0 +1,24 @@
+# Fly.io configuration for Video Downloader Bot
+app = "video-downloader-bot"
+primary_region = "fra"
+
+[build]
+
+[env]
+  # Add non-sensitive environment variables here
+  MAX_FILE_SIZE = "209715200"
+  DOWNLOAD_TIMEOUT = "30"
+  MAX_RETRIES = "3"
+  RATE_LIMIT_REQUESTS = "5"
+  RATE_LIMIT_PERIOD = "10"
+  MAX_CONCURRENT_DOWNLOADS = "10"
+  MAX_DOWNLOADS_PER_USER = "2"
+  LOG_LEVEL = "INFO"
+
+[processes]
+  app = "python bot.py"
+
+[[vm]]
+  cpu_kind = "shared"
+  cpus = 1
+  memory_mb = 256
