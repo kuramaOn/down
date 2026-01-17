@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pip install:*)",
+      "Bash(python:*)",
+      "Bash(=21.0)",
+      "Bash(taskkill:*)",
+      "Bash(nul)",
+      "Bash(powershell -Command \"Get-Process python -ErrorAction SilentlyContinue | Stop-Process -Force\")"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
