@@ -637,6 +637,13 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
                     'no_warnings': True,
                     'socket_timeout': 15,
                     'extract_flat': False,
+                    # Fix YouTube bot detection
+                    'extractor_args': {
+                        'youtube': {
+                            'player_client': ['ios', 'web'],
+                            'skip': ['dash', 'hls']
+                        }
+                    },
                 }
                 
                 with yt_dlp.YoutubeDL(ydl_opts) as ydl:
